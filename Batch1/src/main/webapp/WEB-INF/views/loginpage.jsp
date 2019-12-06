@@ -16,6 +16,11 @@
     {
         width: 10em;
     }
+    .n
+    {
+    border:none;
+     background-color:rgba(0,0,0,0);
+    }
    
 table {
   border-collapse: collapse;
@@ -33,39 +38,38 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 <body>
 <jsp:include page="_AdminMenu.jsp"></jsp:include>
  <div id="mark" style="display:block;margin-top: 2em;" >
-        <table>
-        <tr>
-        <td>
-        <h1>Daily Scorecard</h1>
-        </td>
-        </tr>
-                <tr>
-                <form action="createList" method="post">
-                <th><input type="text" name="date"></th>
-                <th><select name="batch" id="batch" style="width: 13em;">
-                <option value="batch1">Batch 1</option>
-                <option value="batch2">Batch 2</option>
-                <option value="batch3">batch 3</option>
-                <option value="batch4">batch 4</option>
-            </select></th>
-               <th> <input type="submit" value="Create"></th>
-            </form></tr>			 <%String date=(String)request.getAttribute("date");
+        <div><h1>Daily Scorecard</h1></div>
+        <div><form action="createList" method="post">
+          <input type="text" name="date" placeholder="Date">
+          <select name="batch" id="batch" style="width: 13em;">
+          <option value="batch1">Batch 1</option>
+          <option value="batch2">Batch 2</option>
+          <option value="batch3">batch 3</option>
+          <option value="batch4">batch 4</option>
+      </select>
+        <input type="submit" value="Create">
+      </form>	</div>
+                		
+            
+            <%
+            response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+            String date=(String)request.getAttribute("date");
             if(date==null)
             {
             	date="";
             }
             %>
-            <tr><form action="ListView" method="post">
-                <th><input type="text" name="dateView" id="dateview" value=<%=date%>></th>
-                <th><select name="batchView" id="batch" style="width: 13em;">
-                <option value="batch1">Batch 1</option>
-                <option value="batch2">Batch 2</option>
-                <option value="batch3">batch 3</option>
-                <option value="batch4">batch 4</option>
-            </select></th>
-                <th><input type="submit" id="listview" value="View Students"></th>
-            </form>
-                </tr>
+            <div><form action="ListView" method="post">
+              <input type="text" name="dateView" id="dateview" placeholder="Date" value=<%=date%>>
+              <select name="batchView" id="batch" style="width: 13em;">
+              <option value="batch1">Batch 1</option>
+              <option value="batch2">Batch 2</option>
+              <option value="batch3">batch 3</option>
+              <option value="batch4">batch 4</option>
+          </select>
+             <input type="submit" id="listview" value="View Students">
+          </form></div>
+          
                
   <%
    System.out.println(date);
@@ -73,8 +77,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     {}
     else
     {%>
+      <table style="margin-top:3em">
     <tr style="color:red;"> 
-                   <th>Name of Student</th><th>ID</th><th>Batch</th><th>Viva score</th><th>Coding Score</th><th>Project Completion</th>
+                   <th>Name of Student</th><th>ID</th><th>Batch</th><th>Viva score</th><th>Coding Score</th><th>Project Completion</th><th></th>
                    <!--Table heading-->
                </tr>
     <% 
@@ -98,10 +103,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     %>
 	 <tr style="border: none;border-bottom: 1px solid black;">
            <form action="update">
-           <td><input id="nametxt" name="nametxt" type="text" value=<%=name %> readonly></td>
-           <td><input id="idtxt" name="idtxt" type="text" value=<%=id %> readonly></td>
-           <td><input id="batchtxt" name="batchtxt" type="text" value=<%=batch %> readonly></td>         
-           <td><select name="vivatxt" id="vivatxt" value=<%=viva %>>
+           <td><input id="nametxt" class="n" name="nametxt" type="text" value=<%=name %> readonly></td>
+           <td><input id="idtxt" class="n" name="idtxt" type="text" value=<%=id %> readonly></td>
+           <td><input id="batchtxt" class="n" name="batchtxt" type="text" value=<%=batch %> readonly></td>         
+           <td><select name="vivatxt" class="n" id="vivatxt" value=<%=viva %>>
                <option value="null2" <%if(viva.equals("null")) {%>selected<%} %> >null2</option>
                <option value="0" <%if(viva.equals("0")) {%>selected<%} %>>0</option>
                <option value="1" <%if(viva.equals("1")) {%>selected<%} %>>1</option>
@@ -110,12 +115,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                <option value="4" <%if(viva.equals("4")) {%>selected<%} %>>4</option>
                <option value="5" <%if(viva.equals("5")) {%>selected<%} %>>5</option>
                </select></td>
-               <td><select name="codingtxt" id="codingtxt" >
+               <td><select name="codingtxt" class="n" id="codingtxt" >
                <option value="null2" <%if(coding.equals("null")) {%>selected<%} %>>null2</option>
                <option value="0" <%if(coding.equals("0")) {%>selected<%} %>>0</option>
                <option value="1" <%if(coding.equals("1")) {%>selected<%} %>>1</option>
                </select></td>
-               <td><select name="projecttxt" id="projecttxt">
+               <td><select name="projecttxt" class="n" id="projecttxt">
                <option value="null2" <%if(project.equals("null")) {%>selected<%} %>>null2</option>
                <option value="0" <%if(project.equals("0")) {%>selected<%} %>>0</option>
                <option value="1" <%if(project.equals("1")) {%>selected<%} %>>1</option>

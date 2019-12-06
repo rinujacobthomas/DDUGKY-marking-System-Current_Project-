@@ -1,13 +1,9 @@
 package com.batch1.dao;
 
 import java.util.List;
-
 import com.batch1.bo.AddUserbo;
 import com.batch1.bo.BoClass;
 import com.batch1.bo.LoginBO;
-
-
-
 public interface DaoInter {
 
 	void setList(String date,String batch );

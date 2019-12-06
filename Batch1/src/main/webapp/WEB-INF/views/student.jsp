@@ -22,12 +22,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 <body>
 <% 
+response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
 List<BoClass> li=(List)request.getAttribute("list");
 String name=li.get(0).getName();
 String id=li.get(0).getId();
+System.out.println("name : "+name+" id : "+id);
 %>
  <div style="height: 6em;width: 86em; background-color: blue; ">
-        <div style="color:white;margin-left: 3em;"><h1>Welcome</h1><a  style="color: white;" href="logOut" ><h3>LogOut</h3></a></div>
+        <div style="color:white;margin-left: 3em;"><h1><%=name %></h1><a  style="color: white;" href="logOut" ><h3>LogOut</h3></a></div>
       </div>
   <div><button id="daily" onclick="display('dailydiv')">Daily Scorecard</button>&nbsp;&nbsp;<button id="week" onclick="display('weekdiv')">Weekly Scorecard</button></div>
 <div id="dailydiv" style="display: none;">

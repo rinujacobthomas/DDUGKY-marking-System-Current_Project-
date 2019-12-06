@@ -7,6 +7,25 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<style>
+    .n
+    {
+    border:none;
+     background-color:rgba(0,0,0,0);
+    }
+   
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+td {
+  border-bottom: 1px solid #ddd;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
 <body>
 <jsp:include page="_AdminMenu.jsp"></jsp:include>
  <div id="mark" style="display:block;margin-top: 2em;" >
@@ -77,9 +96,9 @@
     %>
 	 <tr style="border: none;border-bottom: 1px solid black;">
            <form action="updateWeek">
-           <td><input id="nametxt" name="nametxt" type="text" value=<%=name %> readonly></td>
-           <td><input id="idtxt" name="idtxt" type="text"  value=<%=id %> readonly></td>
-           <td><input id="batchtxt" name="batchtxt" type="text" value= <%=batch %>  readonly></td>  
+           <td><input id="nametxt" class="n" name="nametxt" type="text" value=<%=name %> readonly></td>
+           <td><input id="idtxt" class="n" name="idtxt" type="text"  value=<%=id %> readonly></td>
+           <td><input id="batchtxt" class="n" name="batchtxt" type="text" value= <%=batch %>  readonly></td>  
            <td><input id="projecttxt" name="projecttxt" type="text" value= <%=project %>  ></td>       
             <td><input id="interviewtxt" name="interviewtxt" type="text" value= <%=interview %> ></td>       
              <td><input id="overalltxt" name="overalltxt" type="text" value= <%=overall %>  ></td>       
