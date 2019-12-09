@@ -70,22 +70,23 @@
 	
 
 	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/vendor/bootstrap/js/popper.js"></script>
-	<script src="Batch1/WEB-INF/views/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/vendor/daterangepicker/moment.min.js"></script>
-	<script src="Batch1/WEB-INF/views/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="Batch1/WEB-INF/views/js/main.js"></script>
+<%-- 	<script><%@include file="vendor/jquery/jquery-3.2.1.min.js"%></script>
+		<script><%@include file="vendor/animsition/js/animsition.min.js"%></script>
+			<script><%@include file="vendor/bootstrap/js/popper.js"%></script>
+				<script><%@include file="vendor/bootstrap/js/bootstrap.min.js"%></script>
+					<script><%@include file="vendor/select2/select2.min.js"%></script>
+						<script><%@include file="vendor/daterangepicker/moment.min.js"%></script>
+							<script><%@include file="vendor/countdowntime/countdowntime.js"%></script>
+								<script><%@include file="vendor/daterangepicker/daterangepicker.js"%></script>
+								<script><%@include file="js/main.js"%></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script>
+<script src=""></script> --%>
 </body>
 </html>

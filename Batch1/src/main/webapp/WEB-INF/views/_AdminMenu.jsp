@@ -19,15 +19,14 @@
         <div class="cbp-hsinner">
           <ul class="cbp-hsmenu">
             <li>
-              <a href="addUserb">Add User</a>
+              <a href="addUserb" id="addmenu">Add User</a>
             </li>
             <li>
-              <a href="dailyMark">Daily Mark</a>
+              <a href="dailyMark" id="dailymarkmenu">Daily Mark</a>
             </li>
             <li>
-              <a href="week">Weekly Mark</a>
+              <a href="week" id="weekmarkmenu">Weekly Mark</a>
             </li>
-            <li><a href="#">Settings</a></li>
             <li><a href="logOut">LogOut</a></li>
           </ul>
         </div>

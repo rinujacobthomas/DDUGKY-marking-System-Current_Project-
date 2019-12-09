@@ -51,5 +51,13 @@ DaoInter dao;
 		
 		return dao.studentDetailsweek(id); 
 	}
+	public List<BoClass> search_Student(String id) {
+		return dao.Search_Student(id);
+		
+	}
+	public void Delete_Student(String id) {
+		dao.Delete_Student(id);
+		
+	}
 
 }

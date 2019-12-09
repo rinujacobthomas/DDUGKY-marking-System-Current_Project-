@@ -1,5 +1,6 @@
 package com.batch1.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,10 +9,13 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.batch1.bo.AddUserbo;
 import com.batch1.bo.BoClass;
 import com.batch1.bo.LoginBO;
+import com.mysql.jdbc.Statement;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 public class DaoClass implements DaoInter {
 	 static String user,coding,viva,project;
@@ -20,18 +24,52 @@ public class DaoClass implements DaoInter {
 	JdbcTemplate jdbcTemplate;
 	public  void setList(String date,String batch ) {
 		System.out.println("in dao class");
-		   String sql = "select * from students where batch='" + batch +"'";
-	    List<BoClass> users = jdbcTemplate.query(sql, new UserMapper1());
-	    for(int i=0;i<users.size();i++)
-	    {
-	    	sql = "insert into mark(id,name,batch,date) values(?,?,?,?)";
-			jdbcTemplate.update(sql, new Object[] { users.get(i).getId(),users.get(i).getName(),batch,date});
-	    }
-	   
+		try {
+			
+			
+			Connection con=jdbcTemplate.getDataSource().getConnection();;
+			java.sql.Statement s= con.createStatement();
+			String sql = "select date from dates where batch='"+batch+"'";
+			ResultSet rs=s.executeQuery(sql);
+			boolean check=true;
+			while(rs.next())
+			{
+				if(date.equals(rs.getString("date")))
+				{
+					check=false;
+					break;
+				}
+				else 
+				{
+					check=true;
+				}
+				//System.out.println(rs.getString("date"));
+			}
+			//System.out.println(check);
+			if(check)
+			{
+				 sql = "insert into dates values(?,?)";
+				jdbcTemplate.update(sql, new Object[] {date,batch});
+			    sql = "select * from students where batch='" + batch +"'";
+		    List<BoClass> users = jdbcTemplate.query(sql, new UserMapper1());
+		    for(int i=0;i<users.size();i++)
+		    {
+		    	sql = "insert into mark(id,name,batch,date) values(?,?,?,?)";
+				jdbcTemplate.update(sql, new Object[] { users.get(i).getId(),users.get(i).getName(),batch,date});
+		    }
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	  }
 	public void addstudent(AddUserbo addbo) {
-		String sql = "insert into students values(?,?,?)";
-		jdbcTemplate.update(sql, new Object[] {addbo.getId(),addbo.getName(),addbo.getBatch()});
+		String sql = "insert into students values(?,?,?,?)";
+		jdbcTemplate.update(sql, new Object[] {addbo.getId(),addbo.getName(),addbo.getBatch(),addbo.getPassword()});
 	}
 	public List<BoClass> ListView(String date, String batch) {
 		String sql = "select * from mark where batch='" + batch +"'and date='"+date+"'";
@@ -44,14 +82,42 @@ public class DaoClass implements DaoInter {
 		
 	}
 	public void setListWeek(String week, String batch) {
-		 String sql = "select * from students where batch='" + batch +"'";
+		Connection con;
+		boolean check=true;
+		try {
+			con = jdbcTemplate.getDataSource().getConnection();
+			java.sql.Statement s= con.createStatement();
+			String sql = "select week from weeks where batch='"+batch+"'";
+			ResultSet rs=s.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				if(week.equals(rs.getString("week")))
+				{
+					check=false;
+					break;
+				}
+				else 
+				{
+					check=true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		};
+		System.out.println(check);
+		if(check)
+		{
+		String sql = "insert into weeks values(?,?)";
+		jdbcTemplate.update(sql, new Object[] {week,batch});
+		  sql = "select * from students where batch='" + batch +"'";
 		    List<BoClass> users = jdbcTemplate.query(sql, new UserMapper1());
 		    for(int i=0;i<users.size();i++)
 		    {
 		    	sql = "insert into week(id,name,batch,week) values(?,?,?,?)";
 				jdbcTemplate.update(sql, new Object[] { users.get(i).getId(),users.get(i).getName(),batch,week});
 		    }
-		
+		}
 	}
 	public List<BoClass> ListViewWeek(String week, String batch) {
 		String sql = "select * from week where batch='" + batch +"'and week='"+week+"'";
@@ -68,7 +134,7 @@ public class DaoClass implements DaoInter {
 		{
 			System.out.println("Student Validate");
 			user="student";
-			String sql = "select * from students where id='" + logbo.getUsername() + "'";
+			String sql = "select * from students where id='" + logbo.getUsername() + "' and password='"+logbo.getPassword()+"'";
 		    users = jdbcTemplate.query(sql, new UserMapper4());
 		    
 		}
@@ -95,8 +161,19 @@ public class DaoClass implements DaoInter {
 	    List<BoClass> markdis2 =  jdbcTemplate.query(sql, new UserMapper6());
 		return markdis2;
 	}
-	
+	public List<BoClass> Search_Student(String id) {
+		String sql = "select * from students where id='" + id +"'";
+		System.out.println("in dao class");
+	    List<BoClass> markdis2 =  jdbcTemplate.query(sql, new UserMapper7());
+	    return markdis2;
+		
 	}
+	public void Delete_Student(String id) {		
+	
+	String sql="delete from students where id='"+id+"'";
+	jdbcTemplate.update(sql);
+	}
+}
 	class UserMapper1 implements RowMapper<BoClass> {
 	  public BoClass mapRow(ResultSet rs, int arg1) throws SQLException {
 		  BoClass user = new BoClass();
@@ -212,3 +289,18 @@ public class DaoClass implements DaoInter {
 		    return bo;
 		  }	
 		}
+
+ class UserMapper7 implements RowMapper<BoClass> {
+public BoClass mapRow(ResultSet rs, int rowNum) throws SQLException {
+	BoClass bo=new BoClass();
+	System.out.println(rs.getString("name"));
+	bo.setName(rs.getString("name"));
+	System.out.println(rs.getString("id"));
+	bo.setId(rs.getString("id"));
+	System.out.println(rs.getString("batch"));
+	bo.setBatch(rs.getString("batch"));
+	return bo;
+}
+ 
+  }
+ 

@@ -26,4 +26,8 @@ public interface DaoInter {
 
 	List<BoClass> studentDetailsweek(String id);
 
+	List<BoClass> Search_Student(String id);
+
+	void Delete_Student(String id);
+
 }

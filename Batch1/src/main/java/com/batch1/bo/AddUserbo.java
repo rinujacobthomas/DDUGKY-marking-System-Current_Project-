@@ -2,8 +2,6 @@ package com.batch1.bo;
 
 public class AddUserbo {
 private String name;
-private String id;
-private String batch;
 public String getName() {
 	return name;
 }
@@ -22,5 +20,15 @@ public String getBatch() {
 public void setBatch(String batch) {
 	this.batch = batch;
 }
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
+private String id;
+private String batch;
+private String password;
+
 
 }

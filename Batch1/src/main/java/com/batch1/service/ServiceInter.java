@@ -30,6 +30,10 @@ public interface ServiceInter {
 
 	List<BoClass> studentDetailsWeek(String id);
 
+	List<BoClass> search_Student(String id);
+
+	void Delete_Student(String id);
+
 
 
 }

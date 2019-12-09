@@ -68,18 +68,18 @@ public class ControllerMain {
 		return mv;
 		}
 	@RequestMapping("createListWeek")					//method to add name list to week Score table to print values
-	public ModelAndView createListWeek(HttpServletRequest request,HttpServletResponse response) {
-		System.out.println("in create list");
+	public void createListWeek(HttpServletRequest request,HttpServletResponse response) {
+		//System.out.println(request.getParameter("week"));
+		//System.out.println(request.getParameter("batch"));
 		ser.setListWeek(request.getParameter("week"),request.getParameter("batch"));		//caling method by passing batch and date
-		ModelAndView mv=new ModelAndView();
-		mv.setViewName("weekMark");			//returning to the same page
-		return mv;
 		}
 	@RequestMapping("ListViewWeek")					//method to display list from database
 	public ModelAndView ListViewWeek(HttpServletRequest request,HttpServletResponse response) {  		
 		//System.out.println("in create list");
 		week=request.getParameter("weekView");			//setting batch and date to variables
 		batch=request.getParameter("batchView");
+		//System.out.println(week);
+		//System.out.println(batch);
 		list=ser.ListViewWeek(week,batch);				//method to display details by passing  batch and date
 		ModelAndView mv=new ModelAndView();
 		mv.addObject("students", list);					//setting data to request

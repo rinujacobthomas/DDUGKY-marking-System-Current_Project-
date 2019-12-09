@@ -6,6 +6,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> 
+    </script>
 </head>
 <style>
     .n
@@ -28,49 +33,76 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 <body>
 <jsp:include page="_AdminMenu.jsp"></jsp:include>
- <div id="mark" style="display:block;margin-top: 2em;" >
-        <table>
-        <tr>
-        <td>
-        <h1>Weekly Scorecard</h1>
-        </td>
-        </tr>
-                <tr>
-                <form action="createListWeek" method="post">
-                <th><input type="text" name="week"></th>
-                <th><select name="batch" id="batch" style="width: 13em;">
-                <option value="batch1">Batch 1</option>
-                <option value="batch2">Batch 2</option>
-                <option value="batch3">batch 3</option>
-                <option value="batch4">batch 4</option>
-            </select></th>
-               <th> <input type="submit" value="Create"></th>
-            </form></tr>			 
-            <%String date=(String)request.getAttribute("week");
-            if(date==null)
+
+
+<body style="background-color: lightgray;">
+        <div class="container">
+                <div class="row" style="margin-top: 1em;">
+                          <div class="col-sm-12 col-md-6 col-lg-6 " style="padding-left: 4em;padding-right:5em;">
+                              <div style="border: 1.5px solid silver;height:14em;border-radius: 10px;padding-left: 6.3em;background-color: white;">
+                                    <div style="font-size: 20px;margin-top:.4em;margin-left: 4em;">New List</div>
+                                    <input  class="form-control" type="date" id="weekadd" style="width: 20em;text-align: center;margin-top: 1em;">
+                                    <select class="form-control" name="" id="batchadd" style="width: 20em;margin-top: 1em;">
+                                            <option value="batch1">Batch 1</option>
+                                            <option value="batch2">Batch 2</option>
+                                            <option value="batch3">Batch 3</option>
+                                            <option value="batch4">Batch 4</option>
+                                    </select>
+                                    <button id="add" style="margin-top: 1em;margin-left:7em;width: 6em;background-color:#1a53ff;color: white;border-radius: 6px;border:none;">Add</button>
+                            </div>
+                          </div>
+<%String week=(String)request.getAttribute("week");
+            if(week==null)
             {
-            	date="";
+            	week="";
             }
             %>
-            <tr><form action="ListViewWeek" method="post">
-                <th><input type="text" name="weekView" id="weekview" value=<%=date%>></th>
-                <th><select name="batchView" id="batch" style="width: 13em;">
-                <option value="batch1">Batch 1</option>
-                <option value="batch2">Batch 2</option>
-                <option value="batch3">batch 3</option>
-                <option value="batch4">batch 4</option>
-            </select></th>
-                <th><input type="submit" id="listview" value="View Students"></th>
-            </form>
-                </tr>
-              
+                          <div class="col-sm-12 col-md-6 col-lg-6 " style="padding-left: 4em;padding-right:5em;">
+                                <div style="border: 1.5px solid silver;height: 14em;border-radius: 10px;padding-left: 6.3em;background-color: white;">
+                                    <div style="font-size: 20px;margin-top:.4em;margin-left: 4em;">View List</div>
+                                    <form action="ListViewWeek">
+                                        <input  class="form-control" type="date" name="weekView" style="width: 20em;text-align: center;margin-top: 1em;" value=<%=week%>>
+                                        <select class="form-control" name="batchView" id="" style="width: 20em;margin-top: 1em;">
+                                                <option value="batch1">Batch 1</option>
+                                                <option value="batch2">Batch 2</option>
+                                                <option value="batch3">Batch 3</option>
+                                                <option value="batch4">Batch 4</option>
+                                        </select>
+                                        <button type="submit" style="margin-top: 1em;margin-left:7em;width: 6em;background-color:#1a53ff;color: white;border-radius: 6px;border:none;">View List</button>
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                </div>
+        <script>
+        document.getElementById("weekmarkmenu").style.color="red";
+         $(document).ready(function() {
+            $('#add').on('click', function(e){
+	      var week = $('#weekadd').val(),
+          batch=$('#batchadd').val(),
+	       formData = "week=" + week+"&batch="+batch;
+	   //console.log(batch);
+	     $.ajax({
+	       type: 'get',
+	       url: 'createListWeek',
+	       data: formData,
+	      //dataType : 'json',
+	       success: function() {
+	    	 
+	      }
+	     });
+	});
+});
+    </script>
   <%
-    System.out.println(date);
-    if(date.equals(""))
+    System.out.println(week);
+    if(week.equals(""))
     {}
     else
     {
     	%>
+    	<div style="margin-left:7em;margin-top:2em;border: 1.5px solid silver;background-color: white;border-radius: 8px;padding: 2em;width:83em;">
+    	<table>
     	 <tr style="color:red;"> 
                    <th>Name of Student</th><th>ID</th><th>Batch</th><th>project Completion<th>Interview</th><th>Overall Performance</th>
                    <!--Table heading-->
@@ -108,7 +140,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   <%} }
   %>
              </table> 
- </div>
+             </div>
  <script>
  function display()
  {
