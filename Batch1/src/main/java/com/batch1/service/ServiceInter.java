@@ -34,6 +34,16 @@ public interface ServiceInter {
 
 	void Delete_Student(String id);
 
+	List<BoClass> batchStudentsView(String batch);
+
+	BoClass passwordView(String parameter);
+
+	void passwordChange(String id, String password);
+
+	void addTrainer(String parameter, String parameter2, String parameter3);
+
+	void trainerPasswordChange(String parameter, String parameter2);
+
 
 
 }

@@ -91,7 +91,7 @@ background-color: lightgray;
                       <option value="batch4">Batch 4</option>
                     </select></div>
                     <div id="txt1"><input type="text" class="form-control" id="id1" placeholder="ID" required></div>
-                    <div id="txt1"><input type="text" class="form-control" id="pass1" placeholder="Password" required></div>
+                    <div id="txt1"><input type="password" class="form-control" id="pass1" placeholder="Password" required></div>
                     <div id="txt1" style="margin-left: 5.3em;"><button id="adduser">ADD</button></div>
                   </div>
                 </div>
@@ -150,10 +150,10 @@ $('#Search').on('click', function(e){
 	    $.ajax({
 	      type: 'get',
 	      url: 'Search_And_Delete',
-	      data: formData,
+	      data: formData,								
 	      dataType : 'json',
 	      success: function(data) {
-	    	  
+	    	  $('#idsearch').val("");				
 	    	 var e= JSON.stringify(data);
 	    	 $('#sername').val(data.name);
 	    	 $('#serid').val(data.id);
@@ -165,7 +165,7 @@ $('#Search').on('click', function(e){
 	    });
 	});
 $('#delete').on('click', function(e){
-	      var id = $('#serid').val()
+	      var id = $('#serid').val();
 	       formData = "id=" + id;
 	   console.log(id);
 	    $.ajax({
@@ -189,14 +189,22 @@ $('#adduser').on('click', function(e){
 	       password=$("#pass1").val(),
 	       formData = "name=" + name + "&id=" + id + "&batch=" + batch+"&password="+password;
 	   console.log(name);
+	   if(id==""||password==""||name=="")
+		   {}
+	   else
+		   {
 	    $.ajax({
 	      type: 'get',
 	      url: 'addUser',
 	      data: formData,
 	      success: function() {
+	    	  $('#name1').val("");
+	    	  $('#id1').val("");
+	    	  $("#pass1").val("");
 	        $('#addResponse').html("Success");
 	      }
 	    });
+}
 });
     });
   </script>

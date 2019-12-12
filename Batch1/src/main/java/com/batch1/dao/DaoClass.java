@@ -129,7 +129,7 @@ public class DaoClass implements DaoInter {
 		
 	}
 	public LoginBO uservalidate(LoginBO logbo) {
-		List<LoginBO> users;
+		List<LoginBO> users = null;
 		if(logbo.getUsername().charAt(0)=='P'&&logbo.getUsername().charAt(1)=='G'&&logbo.getUsername().charAt(2)=='K')
 		{
 			System.out.println("Student Validate");
@@ -138,13 +138,19 @@ public class DaoClass implements DaoInter {
 		    users = jdbcTemplate.query(sql, new UserMapper4());
 		    
 		}
-		else
+		else if(logbo.getUsername().charAt(0)=='F'&&logbo.getUsername().charAt(1)=='A'&&logbo.getUsername().charAt(2)=='C'&&logbo.getUsername().charAt(3)=='E')
 		{
 			System.out.println("Trainer Validate");
 			user="trainer";
 			String sql = "select * from trainers where id='" + logbo.getUsername() + "' and password='" +logbo.getPassword()+ "'";
-			users = jdbcTemplate.query(sql, new UserMapper4());
-		    
+			users = jdbcTemplate.query(sql, new UserMapper4()); 
+		}
+		else
+		{
+			System.out.println("Trainer Validate");
+			user="superAdmin";
+			String sql = "select * from superadmin where id='" + logbo.getUsername() + "' and password='" +logbo.getPassword()+ "'";
+			users = jdbcTemplate.query(sql, new UserMapper4()); 
 		}
 		return users.size() > 0 ? users.get(0) : null;
 		
@@ -173,12 +179,38 @@ public class DaoClass implements DaoInter {
 	String sql="delete from students where id='"+id+"'";
 	jdbcTemplate.update(sql);
 	}
+	public List<BoClass> batchStudentsView(String batch) {
+		String sql = "select * from students where batch='" + batch +"'";
+		    List<BoClass> users = jdbcTemplate.query(sql, new UserMapper1());
+		    return users;
+		
+	}
+	public BoClass passwordView(String id) {
+		String sql = "select * from students where id='" + id +"'";
+	    List<BoClass> users = jdbcTemplate.query(sql, new UserMapper1());
+	    return users.get(0);
+	}
+	public void passwordChange(String id, String password) {
+		
+		String sql = "update students set password='"+password+"' where id='"+id+"'";
+		jdbcTemplate.update(sql);
+	}
+	public void addTrainer(String id, String name, String password) {
+		String sql = "insert into trainers values(?,?,?)";
+		jdbcTemplate.update(sql, new Object[] {id,name,password});
+		
+	}
+	public void trainerPasswordChange(String id, String password) {
+		String sql = "update trainers set password='"+password+"' where id='"+id+"'";
+		jdbcTemplate.update(sql);
+	}
 }
 	class UserMapper1 implements RowMapper<BoClass> {
 	  public BoClass mapRow(ResultSet rs, int arg1) throws SQLException {
 		  BoClass user = new BoClass();
 	    user.setName(rs.getString("name"));
 	    user.setId(rs.getString("id"));
+	    user.setPassword(rs.getString("password"));
 	    return user;
 	  }	
 	}
@@ -212,6 +244,8 @@ public class DaoClass implements DaoInter {
 			  usera.setUsername(rs.getString("name"));
 			  usera.setUser(DaoClass.user);
 			  usera.setId(rs.getString("id"));
+			  System.out.println(rs.getString("id"));
+			  System.out.println(rs.getString("id"));
 		    return usera;
 		  }	
 		}

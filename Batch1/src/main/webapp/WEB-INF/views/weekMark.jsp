@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Weekly Mark</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src= 
@@ -41,7 +41,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                           <div class="col-sm-12 col-md-6 col-lg-6 " style="padding-left: 4em;padding-right:5em;">
                               <div style="border: 1.5px solid silver;height:14em;border-radius: 10px;padding-left: 6.3em;background-color: white;">
                                     <div style="font-size: 20px;margin-top:.4em;margin-left: 4em;">New List</div>
-                                    <input  class="form-control" type="date" id="weekadd" style="width: 20em;text-align: center;margin-top: 1em;">
+                                    <input  class="form-control" type="date" id="weekadd" style="width: 20em;text-align: center;margin-top: 1em;required">
                                     <select class="form-control" name="" id="batchadd" style="width: 20em;margin-top: 1em;">
                                             <option value="batch1">Batch 1</option>
                                             <option value="batch2">Batch 2</option>
@@ -61,7 +61,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                                 <div style="border: 1.5px solid silver;height: 14em;border-radius: 10px;padding-left: 6.3em;background-color: white;">
                                     <div style="font-size: 20px;margin-top:.4em;margin-left: 4em;">View List</div>
                                     <form action="ListViewWeek">
-                                        <input  class="form-control" type="date" name="weekView" style="width: 20em;text-align: center;margin-top: 1em;" value=<%=week%>>
+                                        <input  class="form-control" type="date" name="weekView" style="width: 20em;text-align: center;margin-top: 1em;" value=<%=week%> required>
                                         <select class="form-control" name="batchView" id="" style="width: 20em;margin-top: 1em;">
                                                 <option value="batch1">Batch 1</option>
                                                 <option value="batch2">Batch 2</option>

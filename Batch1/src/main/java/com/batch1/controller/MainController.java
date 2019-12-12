@@ -39,14 +39,22 @@ public class MainController {
 		}
 	@RequestMapping("addUser")		//method to add user
 	public void Add(HttpServletRequest request,HttpServletResponse response,AddUserbo addbo) {
+		if(addbo.getName().equals("")||addbo.getId().equals("")||addbo.getPassword().equals(""))
+		{}
+		else
+		{
 		ser.addstudent(addbo);// calling method to add Stuent
-		}
+		}}
 	@RequestMapping("createList") 		//method to create a new list on a new date
 	public  void createList(HttpServletRequest request,HttpServletResponse response) {
 		//System.out.println(request.getParameter("date"));
 		//System.out.println(request.getParameter("batch"));
+		if(request.getParameter("date").equals(""))
+		{}
+		else
+		{
 		ser.setList(request.getParameter("date"),request.getParameter("batch"));
-		}
+		}}
 	@RequestMapping("ListView")				//method to display mark of students on a specified date
 	public ModelAndView ListView(HttpServletRequest request,HttpServletResponse response) {
 		//System.out.println("in create list");
@@ -92,5 +100,27 @@ public class MainController {
 	{
 		System.out.println(request.getParameter("id"));
 		ser.Delete_Student(request.getParameter("id"));
+	}
+	@RequestMapping("passwordView")
+	public @ResponseBody String passwordView(HttpServletRequest request,HttpServletResponse response)
+	{
+	System.out.println(request.getParameter("id"));	
+	BoClass bo= ser.passwordView(request.getParameter("id"));
+	Gson g= new Gson();
+	String n=g.toJson(bo);
+	System.out.println(n);
+	return n;
+	}
+	@RequestMapping("addTrainer")
+	public void addTrainer(HttpServletRequest request,HttpServletResponse response)
+	{
+		System.out.println(request.getParameter("id"));
+		ser.addTrainer(request.getParameter("id"),request.getParameter("name"),request.getParameter("password"));
+	}
+	@RequestMapping("trainerPasswordChange")
+	public void trainerPasswordChange(HttpServletRequest request,HttpServletResponse response)
+	{
+		System.out.println(request.getParameter("id"));
+		ser.trainerPasswordChange(request.getParameter("id"),request.getParameter("password"));
 	}
 }

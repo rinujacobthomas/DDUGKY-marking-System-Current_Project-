@@ -59,5 +59,24 @@ DaoInter dao;
 		dao.Delete_Student(id);
 		
 	}
+	public List<BoClass> batchStudentsView(String batch) {
+		return dao.batchStudentsView(batch);
+		
+	}
+	public BoClass passwordView(String id) {
+		return dao.passwordView(id);
+		
+	}
+	public void passwordChange(String id, String password) {
+		dao.passwordChange(id,password);
+		
+	}
+	public void addTrainer(String id, String name, String password) {
+		dao.addTrainer(id,name,password);
+		
+	}
+	public void trainerPasswordChange(String id, String password) {
+		dao.trainerPasswordChange(id,password);
+	}
 
 }

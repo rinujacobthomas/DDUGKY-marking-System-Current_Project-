@@ -30,4 +30,14 @@ public interface DaoInter {
 
 	void Delete_Student(String id);
 
+	List<BoClass> batchStudentsView(String batch);
+
+	BoClass passwordView(String id);
+
+	void passwordChange(String id, String password);
+
+	void addTrainer(String id, String name, String password);
+
+	void trainerPasswordChange(String id, String password);
+
 }

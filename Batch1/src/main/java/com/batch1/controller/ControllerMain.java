@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.batch1.bo.BoClass;
 import com.batch1.bo.LoginBO;
 import com.batch1.service.ServiceInter;
+import com.google.gson.Gson;
 
 @Controller
 public class ControllerMain {
@@ -24,6 +26,12 @@ public class ControllerMain {
 	public ModelAndView index() { 				//method to show the first page
 		
 		ModelAndView mv=new ModelAndView("index");
+		return mv;
+		}
+	@RequestMapping("viewStudents")					
+	public ModelAndView viewStudents() {			//method to display week Score page to trainer
+		
+		ModelAndView mv=new ModelAndView("viewStudents");
 		return mv;
 		}
 	@RequestMapping("logOut")					//method to show the login page when users logout
@@ -49,7 +57,7 @@ public class ControllerMain {
 		{
 			mv.setViewName("loginpage");					//displaying trainer page
 		}
-		else														//if it is student
+		else if(user.getUser().equals("student"))														//if it is student
 		{
 			List<BoClass> details=ser.studentDetails(user.getId());			//getting student daily scores to display
 			List<BoClass> weekdetails=ser.studentDetailsWeek(user.getId());		////getting student Weekly scores to display
@@ -58,6 +66,10 @@ public class ControllerMain {
 			mv.addObject("listweek", weekdetails);					//setting data as an attribute 
 			mv.setViewName("student");					//setting display page as student 
 		}
+		else if(user.getUser().equals("superAdmin"))
+				{
+			mv.setViewName("superAdmin");
+				}
 		mv.addObject("userDetails", user);					//
 		return mv;
 		}
@@ -69,10 +81,14 @@ public class ControllerMain {
 		}
 	@RequestMapping("createListWeek")					//method to add name list to week Score table to print values
 	public void createListWeek(HttpServletRequest request,HttpServletResponse response) {
-		//System.out.println(request.getParameter("week"));
+		System.out.println(request.getParameter("week"));
 		//System.out.println(request.getParameter("batch"));
+		if(request.getParameter("week").equals(""))
+		{}
+		else
+		{
 		ser.setListWeek(request.getParameter("week"),request.getParameter("batch"));		//caling method by passing batch and date
-		}
+		}}
 	@RequestMapping("ListViewWeek")					//method to display list from database
 	public ModelAndView ListViewWeek(HttpServletRequest request,HttpServletResponse response) {  		
 		//System.out.println("in create list");
@@ -104,6 +120,22 @@ public class ControllerMain {
 		mv.addObject("week", week);
 		mv.setViewName("weekMark");							//setting next display page
 		return mv;
-	
 		}
+	@RequestMapping("batchStudentsView")
+	public @ResponseBody String batchStudentsView(HttpServletRequest request,HttpServletResponse response)
+	{
+		System.out.println(request.getParameter("batch"));
+		List<BoClass> users=ser.batchStudentsView(request.getParameter("batch"));
+		Gson g= new Gson();
+		String n=g.toJson(users);
+		System.out.println(n);
+		return n;
+	}
+	@RequestMapping("passwordChange")
+	public void passwordChange(HttpServletRequest request,HttpServletResponse response)
+	{
+		System.out.println(request.getParameter("id"));
+		System.out.println(request.getParameter("password"));
+		ser.passwordChange(request.getParameter("id"),request.getParameter("password"));
+	}
 }

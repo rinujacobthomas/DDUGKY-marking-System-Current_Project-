@@ -27,6 +27,9 @@
             <li>
               <a href="week" id="weekmarkmenu">Weekly Mark</a>
             </li>
+            <li>
+              <a href="viewStudents" id="viewstudents">Students List</a>
+            </li>
             <li><a href="logOut">LogOut</a></li>
           </ul>
         </div>

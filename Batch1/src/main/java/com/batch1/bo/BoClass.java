@@ -7,6 +7,13 @@ private String viva;
 private String coding;
 private String project;
 private String day;
+private String password;
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
 public String getDay() {
 	return day;
 }
